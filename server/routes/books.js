@@ -1,32 +1,24 @@
 const express = require('express')
-const mysql = require('mysql2')
 
 const router = express.Router()
-
-const db = require('../config/db')
+const connectionPool = require('../database/connection-pool')
 
 /* GET books listing . */
 router.get('/', function (req, res, next) {
-  const conn = mysql.createConnection(db)
+  const conn = connectionPool.getPool()
 
-  conn.connect(err => {
+  const book = {
+    author: 'Charles Dickens',
+    title: 'Great Expectations',
+    published: '1861-01-01'
+  }
+
+  conn.query('INSERT INTO books set ?', book, (err, result) => {
     if (err) {
       throw err
     }
 
-    const book = {
-      author: 'Charles Dickens',
-      title: 'Great Expectations',
-      published: '1861-01-01'
-    }
-
-    conn.query('INSERT INTO books set ?', book, (err, result) => {
-      if (err) {
-        throw err
-      }
-
-      console.log(result)
-    })
+    console.log(result)
   })
 
   res.send('books here!')
