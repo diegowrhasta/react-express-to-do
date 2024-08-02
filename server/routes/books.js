@@ -3,24 +3,20 @@ const express = require('express')
 const router = express.Router()
 const connectionPool = require('../database/connection-pool')
 
-/* GET books listing . */
-router.get('/', function (req, res, next) {
+router.post('/', function (req, res) {
   const conn = connectionPool.getPool()
 
-  const book = {
-    author: 'Charles Dickens',
-    title: 'Great Expectations',
-    published: '1861-01-01'
-  }
-
-  conn.query('INSERT INTO books set ?', book, (err, result) => {
+  conn.query('INSERT INTO books set ?', req.body, (err, result) => {
     if (err) {
       throw err
     }
 
     console.log(result)
   })
+})
 
+/* GET books listing . */
+router.get('/', function (req, res) {
   res.send('books here!')
 })
 
