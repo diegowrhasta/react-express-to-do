@@ -23,9 +23,14 @@ router.delete('/:id', function (req, res) {
 
 // Save a book
 router.post('/', function (req, res) {
-  repository.save(req.body)
+  repository.save(req.body, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: err.toString() })
+      return
+    }
 
-  res.sendStatus(200)
+    res.sendStatus(200)
+  })
 })
 
 /* GET books listing . */
