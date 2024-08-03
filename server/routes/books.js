@@ -2,17 +2,30 @@ const express = require('express')
 
 const router = express.Router()
 const connectionPool = require('../database/connection-pool')
+const BookRepository = require('../database/book-repository')
 
+let repository = new BookRepository(connectionPool)
+
+router.get('/:id', function (req, res) {
+  console.log('ID', req.params.id)
+  res.sendStatus(200)
+})
+
+router.put('/:id', function (req, res) {
+  console.log('body', req.body)
+  res.sendStatus(200)
+})
+
+router.delete('/:id', function (req, res) {
+  console.log('ID', req.params.id)
+  res.sendStatus(200)
+})
+
+// Save a book
 router.post('/', function (req, res) {
-  const conn = connectionPool.getPool()
+  repository.save(req.body)
 
-  conn.query('INSERT INTO books set ?', req.body, (err, result) => {
-    if (err) {
-      throw err
-    }
-
-    console.log(result)
-  })
+  res.sendStatus(200)
 })
 
 /* GET books listing . */
