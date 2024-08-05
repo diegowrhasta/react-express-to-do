@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "cd server && nodemon start",
-    "client": "cd client && pnpm start"
+    "client": "cd client && pnpm start",
+    "start": "concurrently \"powershell -Command \\\"cd server; $env:PORT=4000; nodemon start\\\"\" \"powershell -Command \\\"cd client; pnpm dev\\\"\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.1.4",
-    "axios": "^1.7.3"
+    "axios": "^1.7.3",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
   }
 }
