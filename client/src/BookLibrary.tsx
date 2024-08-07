@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 class BookLibrary extends React.Component {
   constructor (props) {
@@ -22,6 +24,8 @@ class BookLibrary extends React.Component {
         <td>{book.author}</td>
         <td>{book.title}</td>
         <td>{book.published}</td>
+        <td><EditIcon/></td>
+        <td><DeleteForeverIcon/></td>
       </tr>
     ))
 
