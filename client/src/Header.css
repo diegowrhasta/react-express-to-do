@@ -12,15 +12,15 @@
 
         li {
             display: inline;
+            
+            &.logo {
+                font-size: 2em;
+            }
 
             a {
                 font-size: 1.2em;
                 color: rgba(255, 255, 255, 0.8);
                 text-decoration: none;
-
-                &.logo {
-                    font-size: 2em;
-                }
 
                 &:hover {
                     color: white;

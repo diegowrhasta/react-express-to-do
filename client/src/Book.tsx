@@ -1,6 +1,6 @@
 import './Book.css'
 
-export function Book () {
+function Book () {
 
   console.log('server url', import.meta.env.VITE_REACT_APP_SERVER_URL)
   return (
@@ -9,3 +9,5 @@ export function Book () {
     </>
   )
 }
+
+export default Book
