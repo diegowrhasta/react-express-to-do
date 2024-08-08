@@ -1,11 +1,19 @@
 import './Book.css'
 
 function Book () {
-
-  console.log('server url', import.meta.env.VITE_REACT_APP_SERVER_URL)
   return (
     <>
-      <div id='book-message'>Hello I'm a book</div>
+      <div className='container'>
+        <form>
+          <label htmlFor='author'>Author:</label>
+          <input type='text' name='author' id='author' />
+          <label htmlFor='title'>Title:</label>
+          <input type='text' name='title' id='title' />
+          <label htmlFor='published'>Published:</label>
+          <input type='text' name='published' id='published' />
+          <input type='submit' value='Save' />
+        </form>
+      </div>
     </>
   )
 }

@@ -1,7 +1,29 @@
-#book-message {
-  width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5em;
-  font-size: 30px;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    width: 420px;
+    margin-top: 4em;
+  
+    label {
+      justify-self: end;
+    }
+  
+    input {
+      &[type="submit"] {
+        grid-column: 2/3;
+        width: 100px;
+        justify-self: right;
+      }
+  
+      &[type="text"] {
+        width: 300px;
+      }
+    }
+  }
 }

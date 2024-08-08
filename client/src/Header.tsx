@@ -16,7 +16,7 @@ function Header () {
           <Link to='/create'>Create</Link>
         </li>
         <li>
-          <Link to='/view'>View</Link>
+          <Link to='/'>View</Link>
         </li>
       </ul>
     </div>
