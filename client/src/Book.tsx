@@ -5,6 +5,21 @@ import { Navigate } from 'react-router-dom'
 import './Book.css'
 
 class Book extends React.Component {
+  validation = {
+    author: {
+      rule: /^\S.{0,48}\S$/,
+      message: 'Author field must have 2-50 characters'
+    },
+    title: {
+      rule: /^\S.{0,68}\S$/,
+      message: 'Title field must have 2-70 characters'
+    },
+    published: {
+      rule: /^\d{4}$/,
+      message: 'Published field must be a 4-digit year'
+    }
+  }
+
   constructor (props) {
     super(props)
 
@@ -25,7 +40,33 @@ class Book extends React.Component {
     this.setState({ [name]: value })
   }
 
+  validate () {
+    for (const field in this.validation) {
+      const { rule, message } = this.validation[field]
+      const value = this.state[field]
+
+      if (!value.match(rule)) {
+        this.showMessage(message)
+        return false
+      }
+    }
+
+    return true
+  }
+
+  showMessage (message) {
+    this.setState({ message: message })
+    setTimeout(() => {
+      this.setState({ message: '' })
+    }, 3000)
+  }
+
   handleSubmit (event) {
+    event.preventDefault()
+    if (!this.validate()) {
+      return
+    }
+
     let { published } = this.state
 
     published += '-01-01'
@@ -38,8 +79,6 @@ class Book extends React.Component {
         this.setState({ created: true })
       })
       .catch(console.log)
-
-    event.preventDefault()
   }
 
   render () {
@@ -76,6 +115,7 @@ class Book extends React.Component {
               id='published'
             />
             <input type='submit' value='Save' />
+            <div className='message'>{this.state.message}</div>
           </form>
         </div>
       </>
