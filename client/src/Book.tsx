@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 
 import './Book.css'
 
@@ -33,13 +34,19 @@ class Book extends React.Component {
 
     axios
       .post(import.meta.env.VITE_REACT_APP_SERVER_URL, book)
-      .then(console.log)
+      .then(() => {
+        this.setState({ created: true })
+      })
       .catch(console.log)
 
     event.preventDefault()
   }
 
   render () {
+    if (this.state.created) {
+      return <Navigate to='/' />
+    }
+
     return (
       <>
         <div className='container'>
