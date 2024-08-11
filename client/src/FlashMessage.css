@@ -1,0 +1,13 @@
+div.message {
+  grid-column: 2/3;
+  color: red;
+  font-weight: bold;
+}
+
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}

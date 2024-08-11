@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Navigate } from 'react-router-dom'
 
 import './Book.css'
+import FlashMessage from './FlashMessage'
 
 class Book extends React.Component {
   validation = {
@@ -26,7 +27,8 @@ class Book extends React.Component {
     this.state = {
       author: '',
       title: '',
-      published: ''
+      published: '',
+      submitAttempts: 0
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -46,19 +48,15 @@ class Book extends React.Component {
       const value = this.state[field]
 
       if (!value.match(rule)) {
-        this.showMessage(message)
+        this.setState({
+          message: message,
+          submitAttempts: ++this.state.submitAttempts
+        })
         return false
       }
     }
 
     return true
-  }
-
-  showMessage (message) {
-    this.setState({ message: message })
-    setTimeout(() => {
-      this.setState({ message: '' })
-    }, 3000)
   }
 
   handleSubmit (event) {
@@ -115,7 +113,11 @@ class Book extends React.Component {
               id='published'
             />
             <input type='submit' value='Save' />
-            <div className='message'>{this.state.message}</div>
+            <FlashMessage
+              key={this.state.submitAttempts}
+              message={this.state.message}
+              duration='3000'
+            />
           </form>
         </div>
       </>
