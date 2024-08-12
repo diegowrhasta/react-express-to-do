@@ -92,14 +92,21 @@ class Book extends React.Component {
       return
     }
 
-    let { published } = this.state
+    let { id, title, author, published } = this.state
 
     published += '-01-01'
 
-    const book = { ...this.state, published }
+    const book = { title: title, author: author, published: published }
 
-    axios
-      .post(import.meta.env.VITE_REACT_APP_SERVER_URL, book)
+    let updateFn = axios.post
+    let url = import.meta.env.VITE_REACT_APP_SERVER_URL
+
+    if (id) {
+      updateFn = axios.put
+      url += `/${id}`
+    }
+
+    updateFn(url, book)
       .then(() => {
         this.setState({ created: true })
       })
