@@ -1,9 +1,17 @@
 import React from 'react'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 import './Book.css'
 import FlashMessage from './FlashMessage'
+
+function withRouter (Component) {
+  return function (props) {
+    const params = useParams()
+
+    return <Component {...props} params={params}></Component>
+  }
+}
 
 class Book extends React.Component {
   validation = {
@@ -25,6 +33,7 @@ class Book extends React.Component {
     super(props)
 
     this.state = {
+      id: props.id,
       author: '',
       title: '',
       published: '',
@@ -125,4 +134,4 @@ class Book extends React.Component {
   }
 }
 
-export default Book
+export default withRouter(Book)
