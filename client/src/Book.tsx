@@ -33,7 +33,7 @@ class Book extends React.Component {
     super(props)
 
     this.state = {
-      id: props.id,
+      id: props.params.id,
       author: '',
       title: '',
       published: '',
@@ -42,6 +42,24 @@ class Book extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount (): void {
+    if (!this.state.id) {
+      return
+    }
+
+    axios
+      .get(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/${this.state.id}`)
+      .then(result => {
+        const { author, title, published } = result.data[0]
+        this.setState({
+          author: author,
+          title: title,
+          published: published.substr(0, 4)
+        })
+      })
+      .catch(console.log)
   }
 
   handleChange (event) {
