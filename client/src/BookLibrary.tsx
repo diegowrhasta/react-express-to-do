@@ -1,8 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+
+import BookTable from './BookTable'
 
 import './BookLibrary.css'
 
@@ -39,43 +38,10 @@ class BookLibrary extends React.Component {
   }
 
   render () {
-    const books = this.state.books.map(book => {
-      const date = book.published.toString().substr(0, 4)
-
-      return (
-        <tr key={book.id}>
-          <td>{book.author}</td>
-          <td>{book.title}</td>
-          <td>{date}</td>
-          <td>
-            <Link to={`/edit/${book.id}`}>
-              <EditIcon />
-            </Link>
-          </td>
-          <td>
-            <Link to={'/'}>
-              <DeleteForeverIcon
-                onClick={this.handleDelete.bind(this, book.id)}
-              />
-            </Link>
-          </td>
-        </tr>
-      )
-    })
-
     return (
-      <div className='table-container'>
-        <table>
-          <thead>
-            <tr>
-              <th>Author</th>
-              <th>Title</th>
-              <th>Published</th>
-            </tr>
-          </thead>
-          <tbody>{books}</tbody>
-        </table>
-      </div>
+      <>
+        <BookTable books={this.state.books} handleDelete={this.handleDelete} />
+      </>
     )
   }
 }
