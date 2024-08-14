@@ -11,6 +11,11 @@ var booksRouter = require('./routes/books')
 var app = express()
 
 app.use(cors())
+
+app.use(function (req, res, next) {
+  setTimeout(next, 5000)
+})
+
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

@@ -1,5 +1,5 @@
-.table-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.loading {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 1.5em;
 }

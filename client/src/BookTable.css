@@ -1,22 +1,28 @@
-table {
-  border-spacing: 5em 1em;
-  margin-top: 3em;
+.table-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  th {
-    text-align: left;
-    padding-bottom: 1em;
-  }
+  table {
+    border-spacing: 5em 1em;
+    margin-top: 3em;
 
-  td {
-    word-wrap: break-word;
-    max-width: 300px;
-
-    &:nth-child(1) {
-      font-weight: 550;
+    th {
+      text-align: left;
+      padding-bottom: 1em;
     }
 
-    &:nth-child(2) {
-      font-style: italic;
+    td {
+      word-wrap: break-word;
+      max-width: 300px;
+
+      &:nth-child(1) {
+        font-weight: 550;
+      }
+
+      &:nth-child(2) {
+        font-style: italic;
+      }
     }
   }
 }
