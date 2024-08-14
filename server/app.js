@@ -16,6 +16,10 @@ app.use(function (req, res, next) {
   setTimeout(next, 5000)
 })
 
+app.use(function (req, res, next) {
+  res.sendStatus(500)
+})
+
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

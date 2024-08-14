@@ -11,7 +11,8 @@ class BookLibrary extends React.Component {
 
     this.state = {
       books: [],
-      loading: false
+      loading: false,
+      error: false
     }
 
     this.handleDelete = this.handleDelete.bind(this)
@@ -22,13 +23,12 @@ class BookLibrary extends React.Component {
   }
 
   refresh () {
-    this.setState({ loading: true })
+    this.setState({ loading: true, error: false })
 
     axios(import.meta.env.VITE_REACT_APP_SERVER_URL)
       .then(result => this.setState({ books: result.data, loading: false }))
-      .catch(error => {
-        this.setState({ loading: false })
-        console.log(error)
+      .catch(() => {
+        this.setState({ loading: false, error: true })
       })
   }
 
@@ -44,8 +44,18 @@ class BookLibrary extends React.Component {
   }
 
   render () {
-    const content = this.state.loading ? (
-      <div className='loading'>Loading...</div>
+    let message = ''
+
+    if (this.state.loading) {
+      message = 'Loading...'
+    }
+
+    if (this.state.error) {
+      message = 'An error has occurred. Try again later.'
+    }
+
+    const content = message ? (
+      <div className='library-message'>{message}</div>
     ) : (
       <BookTable books={this.state.books} handleDelete={this.handleDelete} />
     )
