@@ -13,11 +13,16 @@ var app = express()
 app.use(cors())
 
 app.use(function (req, res, next) {
-  setTimeout(next, 5000)
+  setTimeout(next, 1000)
 })
 
 app.use(function (req, res, next) {
-  res.sendStatus(500)
+  if (req.method === 'DELETE') {
+    res.sendStatus(500)
+    return
+  }
+
+  next()
 })
 
 app.use(logger('dev'))

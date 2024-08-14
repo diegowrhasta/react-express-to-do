@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import BookTable from './BookTable'
+import FlashMessage from './FlashMessage'
 
 import './BookLibrary.css'
 
@@ -12,7 +13,9 @@ class BookLibrary extends React.Component {
     this.state = {
       books: [],
       loading: false,
-      error: false
+      error: false,
+      warning: '',
+      warningCount: 0
     }
 
     this.handleDelete = this.handleDelete.bind(this)
@@ -40,7 +43,12 @@ class BookLibrary extends React.Component {
     axios
       .delete(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/${id}`)
       .then(() => this.refresh())
-      .catch(console.log)
+      .catch(() => {
+        this.setState({
+          warningCount: ++this.state.warningCount,
+          warning: 'Delete failed'
+        })
+      })
   }
 
   render () {
@@ -57,7 +65,14 @@ class BookLibrary extends React.Component {
     const content = message ? (
       <div className='library-message'>{message}</div>
     ) : (
-      <BookTable books={this.state.books} handleDelete={this.handleDelete} />
+      <div className='book-library'>
+        <FlashMessage
+          key={this.state.warningCount}
+          message={this.state.warning}
+          duration='3000'
+        ></FlashMessage>
+        <BookTable books={this.state.books} handleDelete={this.handleDelete} />
+      </div>
     )
 
     return content
