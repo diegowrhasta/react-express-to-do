@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 })
 
 app.use(function (req, res, next) {
-  if (req.method === 'DELETE') {
+  if (req.url.match(/\d+/)) {
     res.sendStatus(500)
     return
   }

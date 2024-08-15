@@ -3,7 +3,7 @@ const db = {
   password: 'hello',
   host: '127.0.0.1',
   database: 'books',
-  timezone: 'utc'
+  timezone: 'Z'
 }
 
 module.exports = db

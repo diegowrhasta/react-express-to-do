@@ -37,7 +37,7 @@ class Book extends React.Component {
       author: '',
       title: '',
       published: '',
-      submitAttempts: 0
+      warningCount: 0
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -59,7 +59,9 @@ class Book extends React.Component {
           published: published.substr(0, 4)
         })
       })
-      .catch(console.log)
+      .catch(() => {
+        this.warning('Unable to load book')
+      })
   }
 
   handleChange (event) {
@@ -69,16 +71,17 @@ class Book extends React.Component {
     this.setState({ [name]: value })
   }
 
+  warning (message) {
+    this.setState({ message: message, warningCount: ++this.state.warningCount })
+  }
+
   validate () {
     for (const field in this.validation) {
       const { rule, message } = this.validation[field]
       const value = this.state[field]
 
       if (!value.match(rule)) {
-        this.setState({
-          message: message,
-          submitAttempts: ++this.state.submitAttempts
-        })
+        this.warning(message)
         return false
       }
     }
@@ -110,7 +113,7 @@ class Book extends React.Component {
       .then(() => {
         this.setState({ created: true })
       })
-      .catch(console.log)
+      .catch(() => this.warning('Unable to save book'))
   }
 
   render () {
@@ -148,7 +151,7 @@ class Book extends React.Component {
             />
             <input type='submit' value='Save' />
             <FlashMessage
-              key={this.state.submitAttempts}
+              key={this.state.warningCount}
               message={this.state.message}
               duration='3000'
             />
